@@ -11,6 +11,10 @@ app.get("/hello", (req, res) => {
   res.status(200).send({ message: "I love you, Roza" });
 });
 
+app.get("/hello2", (req, res) => {
+  res.status(200).send({ message: "I love you Toooooooooo, Roza" });
+});
+
 // ZKTeco Push Data Endpoint
 app.post("/zkteco-callback", (req, res) => {
   console.log("Received Data from ZKTeco:", req.body);
