@@ -7,16 +7,42 @@ app.get("/", (req, res) => {
   res.status(200).send({ message: "Welcome to ZKTeco Callback Server" });
 });
 
-app.get("/hello", (req, res) => {
-  res.status(200).send({ message: "I love you, Roza" });
-});
+// Generate 100 unique sweet routes
+const sweetMessages = [
+  "You make my heart skip a beat,",
+  "Your smile lights up my world,",
+  "Every moment with you is special,",
+  "You're my sunshine,",
+  "My love for you grows daily,",
+  "You're my everything,",
+  "My heart belongs to you,",
+  "You're my dream come true,",
+  "I'm crazy about you,",
+  "You complete me,",
+];
 
-app.get("/hello2", (req, res) => {
-  res.status(200).send({ message: "I love you Toooooooooo, Roza" });
-});
+for (let i = 1; i <= 100; i++) {
+  app.get(`/roza${i}`, (req, res) => {
+    const randomIndex = Math.floor(Math.random() * sweetMessages.length);
+    const emoji = String.fromCodePoint(0x1f496 + (i % 10)); // Varying heart emojis
+    const message = `${sweetMessages[randomIndex]} Roza! ${emoji} (Route ${i})`;
 
-app.get("/hello3", (req, res) => {
-  res.status(200).send({ message: "Here is secret message: I love you" });
+    res.status(200).send({
+      message: message,
+      secret:
+        i % 5 === 0 ? `💌 Secret Message ${i}: You're amazing!` : undefined,
+      counter: i,
+    });
+  });
+}
+
+// Special anniversary counter route
+let visitCount = 0;
+app.get("/forever", (req, res) => {
+  visitCount++;
+  res.status(200).send({
+    message: `Our love grows stronger every day, Roza! 💖 (Visited ${visitCount} times)`,
+  });
 });
 
 // ZKTeco Push Data Endpoint
